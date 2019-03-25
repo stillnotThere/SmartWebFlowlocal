@@ -1,15 +1,25 @@
 package com.itech.smartwebflow_local
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_fullscreen.*
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 class FullscreenActivity : AppCompatActivity() {
+
+    var ApplicationTAG = "FullScreenTest"
+
     private val mHideHandler = Handler()
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
@@ -26,6 +36,7 @@ class FullscreenActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
     }
     private val mShowPart2Runnable = Runnable {
+
         // Delayed display of UI elements
         supportActionBar?.show()
         fullscreen_content_controls.visibility = View.VISIBLE
@@ -46,6 +57,15 @@ class FullscreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.e(ApplicationTAG, "Application launch")
+
+        Thread.sleep(5000)
+
+        checkPermissions(this)
+        smartweb_view.settings.allowFileAccess
+        smartweb_view.settings.javaScriptEnabled
+        smartweb_view.settings.databaseEnabled
+        smartweb_view.loadUrl("http://192.168.123.171/sflite/logon.aspx")
 
         setContentView(R.layout.activity_fullscreen)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -59,6 +79,28 @@ class FullscreenActivity : AppCompatActivity() {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         dummy_button.setOnTouchListener(mDelayHideTouchListener)
+    }
+
+    fun checkPermissions(applicationContext: Context) {
+        Log.e(ApplicationTAG, "function checkPermission")
+
+        if (ContextCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.INTERNET
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.e(ApplicationTAG, "Permsission Granted")
+            Toast.makeText(applicationContext, "Permnission Granted", Toast.LENGTH_LONG)
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.INTERNET
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            Log.e(ApplicationTAG, "Permission Denied")
+            Toast.makeText(applicationContext, "Permsission Denied", Toast.LENGTH_LONG)
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

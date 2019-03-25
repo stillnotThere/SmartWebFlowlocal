@@ -10,7 +10,35 @@
             android:id="@+id/smartweb_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:keepScreenOn="true">
     </WebView>
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/dummy_content"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                    android:id="@+id/fullscreen_content_controls"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <Button
+                        android:id="@+id/dummy_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:text="@string/dummy_button"/>
+            </LinearLayout>
+        </FrameLayout>
 
 </FrameLayout>
