@@ -59,7 +59,7 @@ class FullscreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.e(ApplicationTAG, "Application launch")
 
-        Thread.sleep(5000)
+        Thread.sleep(4000)
 
         checkPermissions(this)
         smartweb_view.settings.allowFileAccess
@@ -90,7 +90,7 @@ class FullscreenActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             Log.e(ApplicationTAG, "Permsission Granted")
-            Toast.makeText(applicationContext, "Permnission Granted", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Permnission Granted", Toast.LENGTH_LONG).show()
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -99,7 +99,7 @@ class FullscreenActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_DENIED
         ) {
             Log.e(ApplicationTAG, "Permission Denied")
-            Toast.makeText(applicationContext, "Permsission Denied", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Permsission Denied", Toast.LENGTH_LONG).show()
         }
     }
 
